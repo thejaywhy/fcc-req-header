@@ -1,4 +1,4 @@
-# fcc-timestamp
-FreeCodeCamp Timestamp MS project:
+# fcc-req-header
+freeCodeCamp Request Header Parser microservice implementation
 
-https://www.freecodecamp.org/challenges/timestamp-microservice
+https://www.freecodecamp.org/challenges/request-header-parser-microservice
