@@ -1,33 +1,26 @@
 var express = require('express');
-var strftime = require('strftime');
+var useragent = require('express-useragent');
 var app = express();
+
+app.disable('trust proxy');
+
+app.use(useragent.express());
 
 // root, show welcome page / docs
 app.get("/", function (request, response) {
   response.sendFile(__dirname + '/views/index.html');
 });
 
-// Look for a time stamp parameter
-app.get("/:ts", function (request, response) {
-  //try to parse the parameter
-  var data = {
-    unix: null,
-    natural: null,
-  }
-  var date = new Date(request.params.ts);
-
-  if (date == "Invalid Date") {
-    //it's not natural language, so try for unixtime
-    date = new Date(parseInt(request.params.ts));
-  }
+// Build the only API route
+app.get("/api/whoami", function (request, response) {
   
-  //still not valid? return error
-  if (date == "Invalid Date")  return response.json(data);
-       
-  data.unix = date.getTime(),
-  data.natural = strftime('%B %d, %Y', date)
-  
-  response.json(data);
+  console.log(request.get('X-Forwarded-For'));
+    
+  response.json({
+    ipaddress: request.get('X-Forwarded-For').split(',')[0],
+    language: request.get('accept-language').split(';')[0].split(',')[0],
+    os: request.useragent.os
+  });
 });
 
 // listen for requests
