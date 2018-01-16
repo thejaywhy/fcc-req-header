@@ -2,6 +2,8 @@ var express = require('express');
 var useragent = require('express-useragent');
 var app = express();
 
+app.disable('trust proxy');
+
 app.use(useragent.express());
 
 // root, show welcome page / docs
@@ -11,12 +13,12 @@ app.get("/", function (request, response) {
 
 // Build the only API route
 app.get("/api/whoami", function (request, response) {
-  var ip = request.ip;
-  if (request.ips.length > 0) ip = request.ips;
+  
+  console.log(request.get('X-Forwarded-For'));
     
   response.json({
-    ipaddress: ip,
-    language: request.get('accept-language').split(',')[0],
+    ipaddress: request.get('X-Forwarded-For').split(',')[0],
+    language: request.get('accept-language').split(';')[0].split(',')[0],
     os: request.useragent.os
   });
 });

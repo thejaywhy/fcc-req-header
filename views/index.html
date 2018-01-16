@@ -21,8 +21,12 @@
     <h3>Example Usage</h3>
       <div class="codeblock">
         <pre >
-          curl https://jy-fcc-req-header.glitch.me/api/whoami
-          {"ipaddress":"1.2.3.4","language":"en-US","software":"Macintosh; Intel Mac OS X 10_12_6"}
+          # navigate to https://jy-fcc-req-header.glitch.me/api/whoami in browser
+          {"ipaddress":"1.2.3.4","language":"en-US","os":"macOS Sierra"}
+        </pre>
+        <pre >
+          curl -H 'Accept-Language: en-US;q=0.6,en;q=0.4', https://jy-fcc-req-header.glitch.me/api/whoami
+          {"ipaddress":"1.2.3.4","language":"en-US","os":"Curl"}%
         </pre>
       </div>
     </div>

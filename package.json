@@ -2,8 +2,7 @@
   "name": "jy-fcc-req-header",
   "dependencies": {
     "express": "^4.14.0",
-    "express-useragent": "^1.0.8",
-    "express-request-language": "^1.1.15"
+    "express-useragent": "^1.0.8"
   },
   "main": "server.js",
   "scripts": {
