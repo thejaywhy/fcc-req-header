@@ -13,17 +13,19 @@ app.get("/", function (request, response) {
 
 // Build the only API route
 app.get("/api/whoami", function (request, response) {
-  
-  console.log(request.get('X-Forwarded-For'));
-    
-  response.json({
-    ipaddress: request.get('X-Forwarded-For').split(',')[0],
-    language: request.get('accept-language').split(';')[0].split(',')[0],
+
+  var data = {
+    ipaddress: request.get('X-Forwarded-For') || request.connection.remoteAddress,
+    language: request.get('accept-language') || "en-US,en;q=0.9",
     os: request.useragent.os
-  });
+  }
+
+  response.json(data);
 });
 
 // listen for requests
 var listener = app.listen(process.env.PORT, function () {
   console.log('Your app is listening on port ' + listener.address().port);
 });
+
+module.exports = app; // for testing
